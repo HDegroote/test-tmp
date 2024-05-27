@@ -37,8 +37,10 @@ test('reuse directory', async function (t) {
   t.is(dir, existing, 'uses the existing directory when it already exists')
 })
 
-test('can rm directory with a file', async function (t) {
+test('can rm directory with a subdirectory with a file', async function (t) {
   const dir = await tmp(t)
-  await fs.promises.writeFile(path.join(dir, 'file.txt'), 'make a file')
+  const subDir = path.join(dir, 'subdir')
+  await fs.promises.mkdir(subDir)
+  await fs.promises.writeFile(path.join(subDir, 'file.txt'), 'make a file')
   t.pass('No real test here, we just want to make sure teardown does not crash')
 })
